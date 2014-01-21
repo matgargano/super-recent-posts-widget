@@ -52,7 +52,7 @@ class Super_recent_posts_widget extends WP_Widget {
             'taxonomy' => $taxonomy,
             'term_slug' => $term_slug,
             'number_posts' => $number_posts,
-            'orderby' => $ordeby,
+            'orderby' => $orderby,
             'order' => $order,
         );
         $posts = self::get( $atts );
@@ -218,7 +218,6 @@ class Super_recent_posts_widget extends WP_Widget {
         $args = apply_filters( 'srpw_get_args', $args );
         $transient_key = md5( serialize( $args ) );
         $posts = get_transient( $transient_key );
-        $posts = false;
         if ( ! $posts ) {
             $posts = new WP_Query( $args );    
             set_transient( $transient_key, $posts, self::$transient_limit );
