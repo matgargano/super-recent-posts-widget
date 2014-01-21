@@ -1,0 +1,16 @@
+{
+    "name": "mgargano/super-recent-posts-widget",
+    "description": "A prettier and more functional recent posts widget",
+    "keywords": ["wordpress", "widget", "select posts"],
+    "license": "GPL-3.0+",
+    "authors": [
+        {
+            "name": "Mat Gargano",
+            "email": "mat@voceconnect.com"
+        }
+    ],
+    "type": "library",
+    "autoload": {
+        "files": ["super-recent-posts-widget.php"]
+    }
+}
