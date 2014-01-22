@@ -13,7 +13,7 @@ A prettier, filterable and more functional recent posts widget that allows you t
 
 Drag and drop the widget and fill out the appropriate fields. Some notes:
 
-*    To display posts from a specific post type leave Taxonomy as "-- Choose a Taxonomy --""
+*    To display posts from a specific post type leave Taxonomy as "-- Choose a Taxonomy --"
 *    If you leave order by and/or order as "-- Choose order parameter --" and/or "-- Choose orderby parameter --" it will go with WordPress' default(s), [see here](http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters) for more information.
 *    The following filters are available:
          *    **srpw_get_args** to override arguments of main query for the widget.
