@@ -4,9 +4,10 @@ jQuery(document).ready(function($){
     srpwForms = function(){
         $(".srpw-form").on("change", ".post-types", function(){
             var $parent = $(this).closest('.srpw-form'),
+                $postTypesWrap = $parent.find('.post-types-wrap'),
                 $taxonomiesWrap = $parent.find('.taxonomies-wrap'),
                 $termsWrap = $parent.find('.terms-wrap'),
-                $loading = $parent.find('.loading'),
+                $loading = $postTypesWrap.find('.loading'),
                 postType = $(this).val(),
                 data = {
                     action: "srpw_post_type_selected",
@@ -14,12 +15,13 @@ jQuery(document).ready(function($){
                     srpwNonce: srpwAjax.srpwNonce
                 };
             if (postType) {
-                $loading.show();
+
+                $loading.css('display', 'block');
                 $.post(ajaxurl, data, function(response) {
                     $taxonomiesWrap.find(".taxonomies").empty().html(response);
                     $taxonomiesWrap.show();
                     $termsWrap.hide();
-                    $loading.hide();
+                    $loading.css('display', 'none');
                 });        
             } else {
                 $taxonomiesWrap.hide();
@@ -29,20 +31,21 @@ jQuery(document).ready(function($){
         $(".srpw-form").on("change", ".taxonomies", function(){
             var $parent = $(this).closest('.srpw-form'),
                 $termsWrap = $parent.find('.terms-wrap'),
+                $taxonomiesWrap = $parent.find('.taxonomies-wrap'),
                 taxonomy = $(this).val(),
-                $loading = $parent.find('.loading'),
+                $loading = $taxonomiesWrap.find('.loading'),
                 data = {
                     action: "srpw_taxonomy_selected",
                     taxonomy: taxonomy,
                     srpwNonce: srpwAjax.srpwNonce
                 };
             if (taxonomy) {
-                $loading.show();
+                $loading.css('display', 'block');
                 $termsWrap.hide();
                 $.post(ajaxurl, data, function(response) {
                     $parent.find(".terms").empty().html(response);
                     $termsWrap.show();
-                    $loading.hide();
+                    $loading.css('display', 'none');
                     $termsWrap.show();
                 });   
             } else {

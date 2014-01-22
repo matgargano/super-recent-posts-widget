@@ -112,14 +112,16 @@ class Super_recent_posts_widget extends WP_Widget {
                 <label for="<?php echo $this->get_field_id( 'number_posts' ); ?>"><?php _e( 'Number of Posts:', self::$text_domain ); ?></label> 
                 <input class="widefat" id="<?php echo $this->get_field_id( 'number_posts' ); ?>" name="<?php echo $this->get_field_name( 'number_posts' ); ?>" type="text" value="<?php echo $instance['number_posts']; ?>" />
             </p>            
+
             <p class="post-types-wrap">
                 <label for="<?php echo $this->get_field_id( 'post-type' ); ?>"><?php _e( 'Post Type:', self::$text_domain ); ?></label> 
                 <?php wp_nonce_field( 'nonce_spw', 'nonce_spw' ); ?>
                 <select class="post-types widefat" id="<?php echo $this->get_field_id( 'post-type' ); ?>" name="<?php echo $this->get_field_name( 'post-type' ); ?>">
                     <?php echo Srpw_helper::get_post_types( $instance['post-type'] ); ?>
                 </select>
+                <span class="loading"></span>
+                <div><small>Tip: Leave Taxonomy and Term blank to just have the widget display post types</small></div>
             </p>
-            <p><strong><small>Tip: Leave Taxonomy and Term blank to just have the widget display post types</small></strong></p>
             <p class="taxonomies-wrap">
                 <label for="<?php echo $this->get_field_id( 'taxonomy' ); ?>"><?php _e( 'Taxonomy:', self::$text_domain ); ?></label> 
                 <select class="taxonomies widefat" id="<?php echo $this->get_field_id( 'taxonomy' ); ?>" name="<?php echo $this->get_field_name( 'taxonomy' ); ?>">
@@ -128,6 +130,7 @@ class Super_recent_posts_widget extends WP_Widget {
 
                     <?php } ?>
                 </select>
+                <span class="loading"></span>
             </p>
             <p class="terms-wrap">
                 <label for="<?php echo $this->get_field_id( 'term_slug' ); ?>"><?php _e( 'Term:', self::$text_domain ); ?></label> 
@@ -139,7 +142,7 @@ class Super_recent_posts_widget extends WP_Widget {
                 </select>
             </p>
             <p class="orderby-wrap">
-                <label for="<?php echo $this->get_field_id( 'orderby' ); ?>"><?php _e( 'Order by: <br><small>Not required, if blank will default to the default <a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_BLANK">see here</a> for details</small>', self::$text_domain ); ?></label> 
+                <label for="<?php echo $this->get_field_id( 'orderby' ); ?>"><?php _e( 'Order by: ', self::$text_domain ); ?></label> 
                 <select class="widefat" id="<?php echo $this->get_field_id( 'orderby' ); ?>" name="<?php echo $this->get_field_name( 'orderby' ); ?>">
                     <option> -- Choose orderby parameter -- </option>
                     <option <?php selected( $instance['orderby'], 'date') ?> value="date">Date</option>
@@ -154,17 +157,17 @@ class Super_recent_posts_widget extends WP_Widget {
                     <option <?php selected( $instance['orderby'], 'comment_count') ?> value="comment_count">Comment Count</option>
                     <option <?php selected( $instance['orderby'], 'none') ?> value="none">None</option>
                 </select>
+                <div><small>Not required, if blank will default to the default <a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_BLANK">see here</a> for details</small></div>
             </p>            
             <p class="order-wrap">
-                <label for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'Order:<br><small>Not required, if blank will default to the default <a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_BLANK">see here</a> for details</small>', self::$text_domain ); ?></label> 
+                <label for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'Order:', self::$text_domain ); ?></label> 
                 <select class="widefat" id="<?php echo $this->get_field_id( 'order' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>">
                     <option> -- Choose order parameter -- </option>
                     <option <?php selected( $instance['order'], 'asc') ?> value="asc">Ascending</option>
                     <option <?php selected( $instance['order'], 'desc') ?> value="desc">Descending</option>
                 </select>
+                <div><small>Not required, if blank will default to the default <a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_BLANK">see here</a> for details</small></div>
             </p>
-            
-            <p class="loading"></p>
         </div>
         <script>
         jQuery(document).ready(function($){
