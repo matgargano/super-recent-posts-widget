@@ -10,7 +10,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 ## Description
-A prettier and more functional recent posts widget
+A prettier, filterable and more functional recent posts widget that allows you to choose a custom post type or specific taxonomy.
 
 ## Installation
 > See [Installing Plugins](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins).
