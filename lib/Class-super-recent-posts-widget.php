@@ -3,7 +3,7 @@
 class Super_recent_posts_widget extends WP_Widget {
 
     protected static $text_domain = 'super_recent_posts_widget';
-    protected static $ver = '0.1'; //for cache busting
+    protected static $ver = '0.1.1'; //for cache busting
     protected static $transient_limit = 60;
     
     /**
@@ -120,7 +120,7 @@ class Super_recent_posts_widget extends WP_Widget {
                     <?php echo Srpw_helper::get_post_types( $instance['post-type'] ); ?>
                 </select>
                 <span class="loading"></span>
-                <div><small>Tip: Leave Taxonomy and Term blank to just have the widget display post types</small></div>
+                
             </p>
             <p class="taxonomies-wrap">
                 <label for="<?php echo $this->get_field_id( 'taxonomy' ); ?>"><?php _e( 'Taxonomy:', self::$text_domain ); ?></label> 
@@ -130,6 +130,7 @@ class Super_recent_posts_widget extends WP_Widget {
 
                     <?php } ?>
                 </select>
+                <span class="block"><small>Tip: Leave Taxonomy as "No Specific Taxonomy" to have the widget display post types regardless of taxonomy/term.</small></span>
                 <span class="loading"></span>
             </p>
             <p class="terms-wrap">
@@ -141,6 +142,7 @@ class Super_recent_posts_widget extends WP_Widget {
                     <?php } ?>
                 </select>
             </p>
+            <hr>
             <p class="orderby-wrap">
                 <label for="<?php echo $this->get_field_id( 'orderby' ); ?>"><?php _e( 'Order by: ', self::$text_domain ); ?></label> 
                 <select class="widefat" id="<?php echo $this->get_field_id( 'orderby' ); ?>" name="<?php echo $this->get_field_name( 'orderby' ); ?>">
@@ -157,7 +159,6 @@ class Super_recent_posts_widget extends WP_Widget {
                     <option <?php selected( $instance['orderby'], 'comment_count') ?> value="comment_count">Comment Count</option>
                     <option <?php selected( $instance['orderby'], 'none') ?> value="none">None</option>
                 </select>
-                <div><small>Not required, if blank will default to the default <a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_BLANK">see here</a> for details</small></div>
             </p>            
             <p class="order-wrap">
                 <label for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'Order:', self::$text_domain ); ?></label> 
@@ -166,7 +167,7 @@ class Super_recent_posts_widget extends WP_Widget {
                     <option <?php selected( $instance['order'], 'asc') ?> value="asc">Ascending</option>
                     <option <?php selected( $instance['order'], 'desc') ?> value="desc">Descending</option>
                 </select>
-                <div><small>Not required, if blank will default to the default <a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_BLANK">see here</a> for details</small></div>
+                <div><small>Order and orderby are not required, if blank will default to the default <a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_BLANK">see here</a> for details</small></div>
             </p>
         </div>
         <script>

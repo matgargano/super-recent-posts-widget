@@ -10,7 +10,7 @@ class Srpw_helper {
     }
 
     public static function get_taxonomies( $post_type, $selected = null ){
-        $output = '<option value=""> -- Choose a Taxonomy -- </option>';
+        $output = '<option value=""> -- No Specific Taxonomy -- </option>';
         $taxonomies = get_object_taxonomies( $post_type );
         $taxonomies = apply_filters( 'srpw_taxonomies', $taxonomies );
         foreach( $taxonomies as $taxonomy ){

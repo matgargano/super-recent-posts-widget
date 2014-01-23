@@ -3,7 +3,7 @@ Contributors: matstrs
 Tags: post, widget
 Requires at least: 3.6
 Tested up to: 3.8
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,6 +50,10 @@ Add a "views" directory and file named "custom-srpw.php" to your template direct
 ?>`
 
 
+#### Grunt
+
+This plugin takes advantage of Grunt for validating JavaScript, SASS compilation and minification. To take advantage of Grunt you have to have both [npm](https://npmjs.org/) and [Grunt](http://gruntjs.com/) installed. Visit the respective sites for the applications and make sure they are installed. Once installed, if you want to edit/fork this plugin, it will be helpful to be familiar with these two tools.
+
 
 == Installation ==
 
@@ -69,5 +73,5 @@ Are you using WordPress 3.6+?
 
 == Changelog ==
 
-= 0.5 =
+= 0.1.1 =
 * Initial release
