@@ -3,7 +3,7 @@
 class Super_recent_posts_widget extends WP_Widget {
 
     protected static $text_domain = 'super_recent_posts_widget';
-    protected static $ver = '0.1.1'; //for cache busting
+    protected static $ver = '0.1.4'; //for cache busting
     protected static $transient_limit = 60;
     
     /**
@@ -55,7 +55,7 @@ class Super_recent_posts_widget extends WP_Widget {
             'orderby' => $orderby,
             'order' => $order,
         );
-        $posts = self::get( $atts );
+        $posts = $this->get( $atts );
         ?>
         <?php extract( $args ); ?>
         <?php echo $before_widget; ?>
@@ -83,6 +83,7 @@ class Super_recent_posts_widget extends WP_Widget {
         $instance['taxonomy'] = esc_attr( $new_instance['taxonomy'] );
         $instance['term_slug'] = esc_attr( $new_instance['term_slug'] );
         $instance['number_posts'] = (int)$new_instance['number_posts'];
+        delete_transient( $this->id );
         return $instance;
     }
 
@@ -94,14 +95,16 @@ class Super_recent_posts_widget extends WP_Widget {
      * @param array $instance Previously saved values from database.
      */
     public function form( $instance ) {
-        $post_order = $selected_posts = '';
-        if ( !isset( $instance[ 'title' ] ) ) {
-            $instance['title'] = __( 'Posts', self::$text_domain );
-        }
-        if ( !isset( $instance[ 'number_posts' ] ) || !is_integer( $instance['number_posts'] ) ) {
-            $instance['number_posts'] = 5;
-        }
-
+        $defaults = array( 
+            'title' => __( 'Posts', self::$text_domain ),
+            'order' => null,
+            'orderby' => null,
+            'post-type' => null,
+            'taxonomy' => null,
+            'term_slug' => null,
+            'number_posts' => __(5, self::$text_domain ),
+        );  
+        $instance = wp_parse_args( (array) $instance, $defaults );        
         ?>
         <div class="srpw-form">
             <p>
@@ -130,7 +133,7 @@ class Super_recent_posts_widget extends WP_Widget {
 
                     <?php } ?>
                 </select>
-                <span class="block"><small>Tip: Leave Taxonomy as "No Specific Taxonomy" to have the widget display post types regardless of taxonomy/term.</small></span>
+                <span class="block"><small><?php _e('Tip: Leave Taxonomy as "No Specific Taxonomy" to have the widget display post types regardless of taxonomy/term.', self::$text_domain); ?></small></span>
                 <span class="loading"></span>
             </p>
             <p class="terms-wrap">
@@ -146,7 +149,7 @@ class Super_recent_posts_widget extends WP_Widget {
             <p class="orderby-wrap">
                 <label for="<?php echo $this->get_field_id( 'orderby' ); ?>"><?php _e( 'Order by: ', self::$text_domain ); ?></label> 
                 <select class="widefat" id="<?php echo $this->get_field_id( 'orderby' ); ?>" name="<?php echo $this->get_field_name( 'orderby' ); ?>">
-                    <option> -- Choose orderby parameter -- </option>
+                    <option> -- Default orderby parameter -- </option>
                     <option <?php selected( $instance['orderby'], 'date') ?> value="date">Date</option>
                     <option <?php selected( $instance['orderby'], 'modified') ?> value="modified">Modified</option>
                     <option <?php selected( $instance['orderby'], 'title') ?> value="title">Title</option>
@@ -163,7 +166,7 @@ class Super_recent_posts_widget extends WP_Widget {
             <p class="order-wrap">
                 <label for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'Order:', self::$text_domain ); ?></label> 
                 <select class="widefat" id="<?php echo $this->get_field_id( 'order' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>">
-                    <option> -- Choose order parameter -- </option>
+                    <option> -- Default order parameter -- </option>
                     <option <?php selected( $instance['order'], 'asc') ?> value="asc">Ascending</option>
                     <option <?php selected( $instance['order'], 'desc') ?> value="desc">Descending</option>
                 </select>
@@ -192,40 +195,43 @@ class Super_recent_posts_widget extends WP_Widget {
      * 'srpw_get_args' - filter args in query for getting posts
      *
      * @param array $atts - list of attributes to use in the query
+     * @param array $transient_key - transient key normalized to the widget's ID
      *
      * @return array Updated safe values to be saved.
      */    
 
-    public static function get( $atts ){
-        $number_posts = $atts['number_posts'];
-        $post_type = $atts['post_type'];
-        $term_slug = $atts['term_slug'];
-        $taxonomy = $atts['taxonomy'];
-        $order = $atts['order'];
-        $orderby = $atts['orderby'];
-        if ( $taxonomy === 'category' ) $taxonomy = 'category_name';  
-        if ( $taxonomy === 'post_tag' ) $taxonomy = 'tag';  
-        $args = array(
-                'posts_per_page' => $number_posts,
-                'post_type' => $post_type,
-        );
-        if ( $taxonomy && $term_slug ) {
-            $args = array_merge( $args, array( $taxonomy => $term_slug ) );
-        }
-        if ( $orderby ) {
-            $args = array_merge( $args, array( 'orderby' => $orderby ) );
-        }
-        if ( $order ) {
-            $args = array_merge( $args, array( 'order' => $order ) );
-        }        
-        
-        $args = apply_filters( 'srpw_get_args', $args );
-        $transient_key = md5( serialize( $args ) );
+    public function get( $atts ){
+        $transient_key = $this->id;
         $posts = get_transient( $transient_key );
         if ( ! $posts ) {
+            $number_posts = $atts['number_posts'];
+            $post_type = $atts['post_type'];
+            $term_slug = $atts['term_slug'];
+            $taxonomy = $atts['taxonomy'];
+            $order = $atts['order'];
+            $orderby = $atts['orderby'];
+            if ( $taxonomy === 'category' ) $taxonomy = 'category_name';  
+            if ( $taxonomy === 'post_tag' ) $taxonomy = 'tag';  
+            $args = array(
+                    'posts_per_page' => $number_posts,
+                    'post_type' => $post_type,
+            );
+            if ( $taxonomy && $term_slug ) {
+                $args = array_merge( $args, array( $taxonomy => $term_slug ) );
+            }
+            if ( $orderby ) {
+                $args = array_merge( $args, array( 'orderby' => $orderby ) );
+            }
+            if ( $order ) {
+                $args = array_merge( $args, array( 'order' => $order ) );
+            }        
+            
+            $args = apply_filters( 'srpw_get_args', $args );
+            
+            
             $posts = new WP_Query( $args );    
             set_transient( $transient_key, $posts, self::$transient_limit );
-        }
+        } 
         return $posts;
     }
 

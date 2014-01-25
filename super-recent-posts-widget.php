@@ -2,7 +2,7 @@
 /*
 Plugin Name: Super Recent Posts Widget
 Description: A prettier, filterable and more functional recent posts widget that allows you to choose a custom post type or specific taxonomy.
-Version: 0.1.1
+Version: 0.1.4
 Author: Mat Gargano
 Author URI: http://www.matgargano.com
 */

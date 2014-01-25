@@ -10,31 +10,41 @@ class Srpw_helper {
     }
 
     public static function get_taxonomies( $post_type, $selected = null ){
-        $output = '<option value=""> -- No Specific Taxonomy -- </option>';
+        
         $taxonomies = get_object_taxonomies( $post_type );
         $taxonomies = apply_filters( 'srpw_taxonomies', $taxonomies );
-        foreach( $taxonomies as $taxonomy ){
-            $selected_option = '';
-            if ( $selected !== null ) {
-                $selected_option = selected( $taxonomy, $selected, false );
-            }
+        if ( $taxonomies ){
+            $output = '<option value=""> -- No Specific Taxonomy -- </option>';
+            foreach( $taxonomies as $taxonomy ){
+                $selected_option = '';
+                if ( $selected !== null ) {
+                    $selected_option = selected( $taxonomy, $selected, false );
+                }
 
-            $output .= '<option value="' . $taxonomy . '" ' . $selected_option . '>' . $taxonomy . '</option>';
+                $output .= '<option value="' . $taxonomy . '" ' . $selected_option . '>' . $taxonomy . '</option>';
+            }
+        } else {
+            $output = '<option value=""> -- No Taxonomies Available for ' . $post_type . ' -- </option>';
         }
         return $output;
     }
 
-    public static function get_terms( $term, $selected = null ){
-        $output = '<option value=""> -- Choose a Term -- </option>';
-        $terms = get_terms( $term );
-        foreach( $terms as $term ){
-            $selected_option = '';
-            $id = $term->slug;
-            $name = $term->name;
-            if ( $selected !== null ) {
-                $selected_option = selected( $id, $selected, false );
+    public static function get_terms( $taxonomy, $selected = null ){
+        
+        $terms = get_terms( $taxonomy );
+        if ( $terms ) {
+            $output = '<option value=""> -- Choose a Term -- </option>';
+            foreach( $terms as $term ){
+                $selected_option = '';
+                $id = $term->slug;
+                $name = $term->name;
+                if ( $selected !== null ) {
+                    $selected_option = selected( $id, $selected, false );
+                }
+                $output .= '<option value="' . $id . '" ' . $selected_option . '>' . $name . '</option>';
             }
-            $output .= '<option value="' . $id . '" ' . $selected_option . '>' . $name . '</option>';
+        } else {
+            $output = '<option value=""> -- No Terms available for ' . $taxonomy . ' -- </option>';
         }
         return $output;
     }
