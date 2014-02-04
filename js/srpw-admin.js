@@ -1,6 +1,7 @@
 /*global srpwAjax,alert,console,jQuery,ajaxurl */
+var srpwForms, srpwSetupForms;
 jQuery(document).ready(function($){
-    var srpwForms = function(){
+    srpwForms = function(){
         $("body").on("change", ".srpw-post-types", function(){
             var $parent = $(this).closest('.srpw-form'),
                 $postTypesWrap = $parent.find('.post-types-wrap'),
@@ -40,6 +41,7 @@ jQuery(document).ready(function($){
                 };
             if (taxonomy) {
                 $loading.css('display', 'block');
+                console.log($loading.html());
                 $termsWrap.hide();
                 $.post(ajaxurl, data, function(response) {
                     $parent.find(".terms").empty().html(response);
@@ -53,7 +55,7 @@ jQuery(document).ready(function($){
 
         });
     };
-    var srpwSetupForms = function(){
+    srpwSetupForms = function(){
         $(".srpw-form").each(function(){
             var $postTypesWrap = $(this).find('.post-types-wrap'),
                 $taxonomiesWrap = $(this).find('.taxonomies-wrap'),

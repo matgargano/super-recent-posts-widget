@@ -3,7 +3,7 @@
 class Super_recent_posts_widget extends WP_Widget {
 
     protected static $text_domain = 'super_recent_posts_widget';
-    protected static $ver = '0.2.0'; //for cache busting
+    protected static $ver = '0.2.2'; //for cache busting
     protected static $transient_limit = 60;
     
     /**
@@ -173,10 +173,19 @@ class Super_recent_posts_widget extends WP_Widget {
                 </select>
                 <div><small>Order and orderby are not required, if blank will default to the default <a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_BLANK">see here</a> for details</small></div>
             </p>
-            <p>
-                <strong>This widget's name is </strong> <?php echo $this->id; ?>
-            </p>
+            <?php $this_id = $this->id; ?>
+            <?php if ( strpos( $this_id, '_i_') === false ) { ?>
+                <p>
+                    <strong>This widget's name is </strong> <?php echo $this->id; ?>
+                </p>
+            <?php } ?>
+
         </div>
+        <script>
+        if (typeof(srpwSetupForms) == typeof(Function)) {
+            srpwSetupForms();
+        }
+        </script>
         
         
         <?php 

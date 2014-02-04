@@ -5,7 +5,7 @@ Tags: post, widget
 Tested up to: 3.8  
 Requires at least: 3.6 
 Tested up to: 3.8  
-Stable tag: 0.2.0
+Stable tag: 0.2.2
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,11 @@ Are you using WordPress 3.6+?
 1. Screenshot of widget
 
 == Changelog ==
+
+= 0.2.2 =
+* cleaned up javascript
+* added widget by widget templating
+
 
 = 0.1.4 =
 * Updated transient logic to be more efficient
