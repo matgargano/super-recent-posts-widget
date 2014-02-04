@@ -173,7 +173,16 @@ class Super_recent_posts_widget extends WP_Widget {
                 <div><small>Order and orderby are not required, if blank will default to the default <a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_BLANK">see here</a> for details</small></div>
             </p>
         </div>
-        
+        <script>
+        jQuery(document).ready(function($){
+            if (typeof(srpwForms) == typeof(Function)) {
+                srpwForms();
+            }
+            if (typeof(srpwSetupForms) == typeof(Function)){
+                srpwSetupForms();
+            }
+        });
+        </script>
         
         <?php 
     }
