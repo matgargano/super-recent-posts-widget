@@ -3,7 +3,7 @@
 class Super_recent_posts_widget extends WP_Widget {
 
     protected static $text_domain = 'super_recent_posts_widget';
-    protected static $ver = '0.1.4'; //for cache busting
+    protected static $ver = '0.2.0'; //for cache busting
     protected static $transient_limit = 60;
     
     /**
