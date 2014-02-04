@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 
     // Lint JavaScript
     jshint: {
-      all: ['javascripts/srpw-admin.js'],
+      all: ['js/srpw-admin.js'],
        options:{
         "forin": true,
         "noarg": true,
@@ -28,9 +28,9 @@ module.exports = function(grunt) {
                 preserveComments: "some"
             },
             files: {
-                "javascripts/srpw-admin.min.js": [
-                    "javascripts/*.js",
-                    "!javascripts/*.min.js",
+                "js/srpw-admin.min.js": [
+                    "js/*.js",
+                    "!js/*.min.js",
                 ],
             }
         }

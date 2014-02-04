@@ -22,6 +22,7 @@ The following filters are available:
 
 *    **srpw_get_args** to override arguments of main query for the widget.  
 *    **srpw_template** to override the output template for the widget, see below for more information.  
+*    **srpw_WIDGET_NAME_template** to override the output template for the widget on a widget by widget basis, the WIDGET_NAME appears on the back-end in the widgets window see below for more information.  
 *    **widget_title** this is a WordPress core filter [see here](http://codex.wordpress.org/Plugin_API/Filter_Reference) for more information.  
 *    **srpw_post_types** to override the post types available for this widget.  
 *    **srpw_taxonomies** to override the taxonomies available for this widget.  

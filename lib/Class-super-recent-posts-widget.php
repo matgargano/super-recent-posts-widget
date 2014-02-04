@@ -37,8 +37,9 @@ class Super_recent_posts_widget extends WP_Widget {
      * @param array $instance Saved values from database.
      */
     public function widget( $args, $instance ) {
-        
-        $template_file = apply_filters( 'srpw_template', plugin_dir_path( dirname( __FILE__ ) ) . 'views/widget.php' );
+        $template_file = plugin_dir_path( dirname( __FILE__ ) ) . 'views/widget.php';
+        $template_file = apply_filters( 'srpw_template', $template_file );
+        $template_file = apply_filters( 'srpw_' . $this->id . '_template', $template_file );
         $title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : __( 'Recent Posts' );
         $number_posts = ( ! empty( $instance['number_posts'] ) || ! is_integer( $instance['number_posts'] ) ) ? $instance['number_posts'] : 5;
         $title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
@@ -119,7 +120,7 @@ class Super_recent_posts_widget extends WP_Widget {
             <p class="post-types-wrap">
                 <label for="<?php echo $this->get_field_id( 'post-type' ); ?>"><?php _e( 'Post Type:', self::$text_domain ); ?></label> 
                 <?php wp_nonce_field( 'nonce_spw', 'nonce_spw' ); ?>
-                <select class="post-types widefat" id="<?php echo $this->get_field_id( 'post-type' ); ?>" name="<?php echo $this->get_field_name( 'post-type' ); ?>">
+                <select class="srpw-post-types widefat" id="<?php echo $this->get_field_id( 'post-type' ); ?>" name="<?php echo $this->get_field_name( 'post-type' ); ?>">
                     <?php echo Srpw_helper::get_post_types( $instance['post-type'] ); ?>
                 </select>
                 <span class="loading"></span>
@@ -127,7 +128,7 @@ class Super_recent_posts_widget extends WP_Widget {
             </p>
             <p class="taxonomies-wrap">
                 <label for="<?php echo $this->get_field_id( 'taxonomy' ); ?>"><?php _e( 'Taxonomy:', self::$text_domain ); ?></label> 
-                <select class="taxonomies widefat" id="<?php echo $this->get_field_id( 'taxonomy' ); ?>" name="<?php echo $this->get_field_name( 'taxonomy' ); ?>">
+                <select class="srpw-taxonomies widefat" id="<?php echo $this->get_field_id( 'taxonomy' ); ?>" name="<?php echo $this->get_field_name( 'taxonomy' ); ?>">
                     <?php if ( $instance['post-type'] ) { ?>
                         <?php echo Srpw_helper::get_taxonomies( $instance['post-type'], $instance['taxonomy'] ); ?>
 
@@ -172,17 +173,11 @@ class Super_recent_posts_widget extends WP_Widget {
                 </select>
                 <div><small>Order and orderby are not required, if blank will default to the default <a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_BLANK">see here</a> for details</small></div>
             </p>
+            <p>
+                <strong>This widget's name is </strong> <?php echo $this->id; ?>
+            </p>
         </div>
-        <script>
-        jQuery(document).ready(function($){
-            if (typeof(srpwForms) == typeof(Function)) {
-                srpwForms();
-            }
-            if (typeof(srpwSetupForms) == typeof(Function)){
-                srpwSetupForms();
-            }
-        });
-        </script>
+        
         
         <?php 
     }

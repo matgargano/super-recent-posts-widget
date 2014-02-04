@@ -1,8 +1,7 @@
 /*global srpwAjax,alert,console,jQuery,ajaxurl */
-var srpwForms, srpwSetupForms;
 jQuery(document).ready(function($){
-    srpwForms = function(){
-        $(".srpw-form").on("change", ".post-types", function(){
+    var srpwForms = function(){
+        $("body").on("change", ".srpw-post-types", function(){
             var $parent = $(this).closest('.srpw-form'),
                 $postTypesWrap = $parent.find('.post-types-wrap'),
                 $taxonomiesWrap = $parent.find('.taxonomies-wrap'),
@@ -18,7 +17,7 @@ jQuery(document).ready(function($){
 
                 $loading.css('display', 'block');
                 $.post(ajaxurl, data, function(response) {
-                    $taxonomiesWrap.find(".taxonomies").empty().html(response);
+                    $taxonomiesWrap.find(".srpw-taxonomies").empty().html(response);
                     $taxonomiesWrap.show();
                     $termsWrap.hide();
                     $loading.css('display', 'none');
@@ -28,7 +27,7 @@ jQuery(document).ready(function($){
                 $termsWrap.hide();
             }
         });
-        $(".srpw-form").on("change", ".taxonomies", function(){
+        $("body").on("change", ".srpw-taxonomies", function(){
             var $parent = $(this).closest('.srpw-form'),
                 $termsWrap = $parent.find('.terms-wrap'),
                 $taxonomiesWrap = $parent.find('.taxonomies-wrap'),
@@ -54,13 +53,13 @@ jQuery(document).ready(function($){
 
         });
     };
-    srpwSetupForms = function(){
+    var srpwSetupForms = function(){
         $(".srpw-form").each(function(){
             var $postTypesWrap = $(this).find('.post-types-wrap'),
                 $taxonomiesWrap = $(this).find('.taxonomies-wrap'),
                 $termsWrap = $(this).find('.terms-wrap'),
-                $postTypes = $postTypesWrap.find('.post-types'),
-                $taxonomies = $taxonomiesWrap.find('.taxonomies'),
+                $postTypes = $postTypesWrap.find('.srpw-post-types'),
+                $taxonomies = $taxonomiesWrap.find('.srpw-taxonomies'),
                 $terms = $termsWrap.find('.terms');
             if ($postTypes.val()){
                 $taxonomiesWrap.show();
