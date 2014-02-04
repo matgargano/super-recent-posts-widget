@@ -173,16 +173,7 @@ class Super_recent_posts_widget extends WP_Widget {
                 <div><small>Order and orderby are not required, if blank will default to the default <a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_BLANK">see here</a> for details</small></div>
             </p>
         </div>
-        <script>
-        jQuery(document).ready(function($){
-            if (typeof(srpwForms) == typeof(Function)) {
-                srpwForms();
-            }
-            if (typeof(srpwSetupForms) == typeof(Function)){
-                srpwSetupForms();
-            }
-        });
-        </script>
+        
         
         <?php 
     }
@@ -241,7 +232,7 @@ class Super_recent_posts_widget extends WP_Widget {
     public static function enqueue(){
         if ( is_admin() ) {
             wp_enqueue_style( 'srpw-admin', plugins_url( 'css/' . 'srpw-admin.min.css', dirname( __FILE__ ) ), false, self::$ver );
-            wp_enqueue_script( 'srpw-admin', plugins_url( 'javascripts/' . 'srpw-admin.min.js', dirname( __FILE__ ) ), array( 'jquery' ), self::$ver, true );
+            wp_enqueue_script( 'srpw-admin', plugins_url( 'js/' . 'srpw-admin.min.js', dirname( __FILE__ ) ), array( 'jquery' ), self::$ver, true );
             wp_localize_script( 'srpw-admin', 'srpwAjax', array(
                 'srpwNonce' => wp_create_nonce( 'nonce_spw' ),
                 )
