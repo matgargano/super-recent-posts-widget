@@ -3,11 +3,11 @@ Super Recent Posts Widget
 Contributors: matstars  
 Tags: post, widget  
 Tested up to: 3.8  
-Requires at least: 3.6 
+Requires at least: 3.6  
 Tested up to: 3.8  
-Stable tag: 0.2.2
-License: GPLv2 or later  
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Stable tag: 0.2.2  
+License: GPLv2 or later   
+License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
 == Description ==
 
